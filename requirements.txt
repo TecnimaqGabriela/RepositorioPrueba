@@ -1,0 +1,9 @@
+
+numpy
+matplotlib
+argparse
+imutils
+tensorflow
+fastapi
+uvicorn
+python-multipart
