@@ -1,9 +1,6 @@
-
 numpy
-matplotlib
-argparse
-imutils
-tensorflow
-fastapi
-uvicorn
-python-multipart
+opencv-contrib-python==4.2.0.34
+tensorflow-gpu==2.0.0a0
+fastapi==0.61.2
+uvicorn==0.12.2
+python-multipart==0.0.5
