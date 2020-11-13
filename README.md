@@ -5,3 +5,7 @@ Primero se instala pip (si no lo tiene instalado) con sudo apt python3-pip. Se u
 Se decargan los pesos de https://drive.google.com/file/d/1Y8K7NDO5oLki7RKRktnhd9jt4bzt-2jR/view?usp=sharing y https://drive.google.com/file/d/1Vh4kURDxDtHCxTiJoJJlYTGMj8LDkgwE/view?usp=sharing (son dos archivos diferentes), y se situan en la misma carpeta que el resto
 
 Se ejecuta con uvicorn Detector_FastAPI:app --reload
+
+Python > 3.7
+
+(probado en python 3.7.4 (con numpy==1.16.0) y python 3.8.5)
