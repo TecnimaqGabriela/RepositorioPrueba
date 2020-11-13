@@ -2,13 +2,13 @@ import tempfile
 import numpy as np
 
 import cv2
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, Form
 from tensorflow.keras.models import load_model
 
 app = FastAPI()
 
 @app.post("/imagen/")
-async def create_upload_file(uploaded_file: UploadFile = File(...)):
+async def create_upload_file(uploaded_file: UploadFile = File(...), given_plate: str = Form(...)):
     extension = uploaded_file.filename.split('.')[-1]
     file_ = tempfile.NamedTemporaryFile(suffix='.' + extension)
     file_.write(uploaded_file.file.read())
@@ -160,8 +160,22 @@ async def create_upload_file(uploaded_file: UploadFile = File(...)):
             result[1] == letters[1]
         if type(result[0]) == np.int64 and type(result[1]) == str and type(result[2]) == np.int64 and type(result[3]) == np.int64:
             result[0] = letters[0]
- 
 
-    return{
-        "Placa": str(result)
-    }
+    Coincidencias = []
+
+    for i in range(len(result)):
+        if str(result[i]) == str(given_plate[i]):
+            Coincidencias.append(True)
+        else:
+            Coincidencias.append(False)
+        
+    if all(Coincidencias):
+        end = {"Message": "Las placas coinciden"}
+    else:
+        end = {
+            "Message": "Las placas no coinciden",
+            "Placa dada por el usuario": given_plate,
+            "Placa leída en la imágen": str(result)
+        }
+
+    return end
