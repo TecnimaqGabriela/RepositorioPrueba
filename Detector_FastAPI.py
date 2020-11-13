@@ -5,10 +5,11 @@ import cv2
 from fastapi import FastAPI, File, UploadFile, Form
 from tensorflow.keras.models import load_model
 
-app = FastAPI()
+app = FastAPI(version='0.1.1')
 
-@app.post("/imagen/")
-async def create_upload_file(uploaded_file: UploadFile = File(...), given_plate: str = Form(...)):
+@app.post("/imagen/{placa}")
+async def create_upload_file(placa: str, uploaded_file: UploadFile = File(...)):
+    given_plate = placa.upper()
     extension = uploaded_file.filename.split('.')[-1]
     file_ = tempfile.NamedTemporaryFile(suffix='.' + extension)
     file_.write(uploaded_file.file.read())
